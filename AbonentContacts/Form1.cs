@@ -8,12 +8,13 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SqlClient;
+using System.Runtime.CompilerServices;
 
 namespace AbonentContacts
 {
     public partial class Form1 : Form
     {
-       private const string connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;
+        private const string connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;
             AttachDbFilename=C:\Users\Nikita\Documents\Программы\AbonentContacts\AbonentContacts\DataBase_Task_1.mdf;Integrated Security=True;";
 
         public Form1()
@@ -78,19 +79,9 @@ namespace AbonentContacts
                       JOIN Mikolaichuk_Contact 
                                 ON Mikolaichuk_Contact.Id = Mikolaichuk_Abonent_has_Contact.contact_id 
                      LEFT JOIN Mikolaichuk_Provider ON Mikolaichuk_Provider.Id = Mikolaichuk_Contact.provider_id";
-            if (m_edit_phone.Text != "")
-            {
-                request += " WHERE Mikolaichuk_Contact.phone LIKE '%" + m_edit_phone.Text + "%'";
-            }
 
-            if (m_edit_fio.Text != "")
-            {
-                //request += " WHERE Mikolaichuk_Abonent.surname LIKE '%" + m_edit_fio.Text + @"%'
-                //            OR Mikolaichuk_Abonent.name LIKE '%" + m_edit_fio.Text + @"%'
-                //            OR Mikolaichuk_Abonent.patronymic LIKE '%" + m_edit_fio.Text + "%'";
+            request += " WHERE Mikolaichuk_Contact.phone LIKE '%" + m_edit_phone.Text + "%' AND Mikolaichuk_Abonent.surname +' '+ Mikolaichuk_Abonent.name +' '+ Mikolaichuk_Abonent.patronymic LIKE '%" + m_edit_fio.Text + "%'";
 
-                request += @" WHERE Mikolaichuk_Abonent.surname +' '+ Mikolaichuk_Abonent.name +' '+ Mikolaichuk_Abonent.patronymic LIKE '%" + m_edit_fio.Text + "%'";
-            }
             var adapter = new SqlDataAdapter(request, connectionString);
 
             var phone_help_table = new DataTable();
@@ -144,13 +135,17 @@ namespace AbonentContacts
                 var patronymic = form.patronymic_textbox.Text;
                 var comment = form.comment_textbox.Text;
                 var address = form.address_textbox.Text;
-                var birth_date = form.birthday_textbox.Text;
+
+                form.dateTimePicker_bd.CustomFormat = "yyyy-MM-dd";
+                form.dateTimePicker_bd.Format = DateTimePickerFormat.Custom;                         
+                
+                var birth_day = form.dateTimePicker_bd.Value;
 
                 var connection = new SqlConnection(connectionString);
                 connection.Open();
-
+               
                 var request = @"INSERT INTO Mikolaichuk_Abonent (surname, name, patronymic, address, birth_date, comment) 
-                    VALUES ('" + surname + "','" + name + "','" + patronymic + "','" + address + "','" + birth_date + "','" + comment + "')";
+                    VALUES ('" + surname + "','" + name + "','" + patronymic + "','" + address + "','" + birth_day.ToString("yyyy-MM-dd") + "','" + comment + "')";
                 var command = new SqlCommand(request, connection);
                 command.ExecuteNonQuery();
 
@@ -175,8 +170,8 @@ namespace AbonentContacts
             form.name_textbox.Text = row.Cells["name"].Value.ToString();
             form.patronymic_textbox.Text = row.Cells["patronymic"].Value.ToString();
             form.address_textbox.Text = row.Cells["address"].Value.ToString();
-            form.birthday_textbox.Text = row.Cells["birth_date"].Value.ToString();
             form.comment_textbox.Text = row.Cells["comment"].Value.ToString();
+            form.dateTimePicker_bd.Text = row.Cells["birth_date"].Value.ToString();
 
             var res = form.ShowDialog();
             if (res == DialogResult.OK)
@@ -186,7 +181,12 @@ namespace AbonentContacts
                 var patronymic = form.patronymic_textbox.Text;
                 var comment = form.comment_textbox.Text;
                 var address = form.address_textbox.Text;
-                var birth_date = form.birthday_textbox.Text;
+
+                form.dateTimePicker_bd.CustomFormat = "yyyy-MM-dd";
+                form.dateTimePicker_bd.Format = DateTimePickerFormat.Custom;
+
+                var birth_day = form.dateTimePicker_bd.Value;
+
                 var id = row.Cells["id"].Value.ToString();
 
                 var connection = new SqlConnection(connectionString);
@@ -194,7 +194,7 @@ namespace AbonentContacts
 
                 var request = @"UPDATE Mikolaichuk_Abonent SET 
                         surname='" + surname + "', name='" + name + "', patronymic='" + patronymic + "', address='" + address + "'," +
-                            " birth_date='" + birth_date + "', comment='" + comment + "' WHERE id='" + id + "'";
+                            " birth_date='" + birth_day.ToString("yyyy-MM-dd") + "', comment='" + comment + "' WHERE id='" + id + "'";
                 var command = new SqlCommand(request, connection);
                 command.ExecuteNonQuery();
 
@@ -505,7 +505,7 @@ namespace AbonentContacts
 
             form.AbonentIdSelect = (int)row.Cells["abonent_id"].Value;
             form.ContactIdSelect = (int)row.Cells["contact_id"].Value;
-            
+
             var res = form.ShowDialog();
             if (res == DialogResult.OK)
             {

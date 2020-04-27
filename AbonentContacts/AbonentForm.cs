@@ -15,6 +15,9 @@ namespace AbonentContacts
         public AbonentForm()
         {
             InitializeComponent();
+
+            dateTimePicker_bd.MinDate = new DateTime(1900, 1, 1);
+            dateTimePicker_bd.MaxDate = DateTime.Today;
         }
 
         private void okey_button_Click(object sender, EventArgs e)

@@ -33,7 +33,6 @@
             this.name_textbox = new System.Windows.Forms.TextBox();
             this.patronymic_textbox = new System.Windows.Forms.TextBox();
             this.address_textbox = new System.Windows.Forms.TextBox();
-            this.birthday_textbox = new System.Windows.Forms.TextBox();
             this.comment_textbox = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -43,48 +42,42 @@
             this.label6 = new System.Windows.Forms.Label();
             this.okey_button = new System.Windows.Forms.Button();
             this.cancel_button = new System.Windows.Forms.Button();
+            this.dateTimePicker_bd = new System.Windows.Forms.DateTimePicker();
             this.SuspendLayout();
             // 
             // surname_textbox
             // 
             this.surname_textbox.Location = new System.Drawing.Point(12, 12);
             this.surname_textbox.Name = "surname_textbox";
-            this.surname_textbox.Size = new System.Drawing.Size(100, 20);
+            this.surname_textbox.Size = new System.Drawing.Size(121, 20);
             this.surname_textbox.TabIndex = 0;
             // 
             // name_textbox
             // 
             this.name_textbox.Location = new System.Drawing.Point(12, 39);
             this.name_textbox.Name = "name_textbox";
-            this.name_textbox.Size = new System.Drawing.Size(100, 20);
+            this.name_textbox.Size = new System.Drawing.Size(121, 20);
             this.name_textbox.TabIndex = 1;
             // 
             // patronymic_textbox
             // 
             this.patronymic_textbox.Location = new System.Drawing.Point(12, 66);
             this.patronymic_textbox.Name = "patronymic_textbox";
-            this.patronymic_textbox.Size = new System.Drawing.Size(100, 20);
+            this.patronymic_textbox.Size = new System.Drawing.Size(121, 20);
             this.patronymic_textbox.TabIndex = 2;
             // 
             // address_textbox
             // 
             this.address_textbox.Location = new System.Drawing.Point(13, 93);
             this.address_textbox.Name = "address_textbox";
-            this.address_textbox.Size = new System.Drawing.Size(100, 20);
+            this.address_textbox.Size = new System.Drawing.Size(120, 20);
             this.address_textbox.TabIndex = 3;
-            // 
-            // birthday_textbox
-            // 
-            this.birthday_textbox.Location = new System.Drawing.Point(12, 120);
-            this.birthday_textbox.Name = "birthday_textbox";
-            this.birthday_textbox.Size = new System.Drawing.Size(100, 20);
-            this.birthday_textbox.TabIndex = 4;
             // 
             // comment_textbox
             // 
-            this.comment_textbox.Location = new System.Drawing.Point(12, 147);
+            this.comment_textbox.Location = new System.Drawing.Point(12, 145);
             this.comment_textbox.Name = "comment_textbox";
-            this.comment_textbox.Size = new System.Drawing.Size(100, 20);
+            this.comment_textbox.Size = new System.Drawing.Size(121, 20);
             this.comment_textbox.TabIndex = 5;
             // 
             // label1
@@ -161,11 +154,22 @@
             this.cancel_button.UseVisualStyleBackColor = true;
             this.cancel_button.Click += new System.EventHandler(this.cancel_button_Click);
             // 
+            // dateTimePicker_bd
+            // 
+            this.dateTimePicker_bd.Location = new System.Drawing.Point(12, 119);
+            this.dateTimePicker_bd.MaxDate = new System.DateTime(2020, 4, 27, 12, 58, 44, 0);
+            this.dateTimePicker_bd.MinDate = new System.DateTime(1900, 1, 1, 0, 0, 0, 0);
+            this.dateTimePicker_bd.Name = "dateTimePicker_bd";
+            this.dateTimePicker_bd.Size = new System.Drawing.Size(121, 20);
+            this.dateTimePicker_bd.TabIndex = 14;
+            this.dateTimePicker_bd.Value = new System.DateTime(2020, 4, 27, 0, 0, 0, 0);
+            // 
             // AbonentForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(226, 213);
+            this.Controls.Add(this.dateTimePicker_bd);
             this.Controls.Add(this.cancel_button);
             this.Controls.Add(this.okey_button);
             this.Controls.Add(this.label6);
@@ -175,7 +179,6 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.comment_textbox);
-            this.Controls.Add(this.birthday_textbox);
             this.Controls.Add(this.address_textbox);
             this.Controls.Add(this.patronymic_textbox);
             this.Controls.Add(this.name_textbox);
@@ -201,7 +204,7 @@
         public System.Windows.Forms.TextBox name_textbox;
         public System.Windows.Forms.TextBox patronymic_textbox;
         public System.Windows.Forms.TextBox address_textbox;
-        public System.Windows.Forms.TextBox birthday_textbox;
         public System.Windows.Forms.TextBox comment_textbox;
+        public System.Windows.Forms.DateTimePicker dateTimePicker_bd;
     }
 }
